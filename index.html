@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang=en>
     <head>
-        <script src="./d3.js" type="text/javascript" charset="utf-8"></script>
+        <script src="./dependencies/d3.js" type="text/javascript" charset="utf-8"></script>
 <!--        use this eventually <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
-		<script src="./dynamic3.js"></script>
+		<script src="./../dynamic3.js"></script>
 		<script src="./strawman.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <link rel="stylesheet" href="./bootstrap.min.css"></link>
-        <link rel="stylesheet" href="./bootstrap-theme.min.css"></link>
-        <script src="./bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./index.css"></link>
+        <link rel="stylesheet" href="./dependencies/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="./dependencies/bootstrap-theme.min.css"></link>
+        <script src="./dependencies/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./styles/index.css"></link>
         <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     </head>
     <body>
@@ -31,12 +31,12 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li><a href="#circle-graph">Circle Graph</a></li>
+                <li><a href="#cir-graph">Circle Graph</a></li>
                 <li><a href="#ever-changing-bar-graph">Ever-Changing Bar Graph</a></li>
                 <li><a href="#expanding-bar-graph">Expanding Bar Graph</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://www.github.com/jeffreychan637/dynamic3">View Code on Github</a></li>
+                <li><a href="http://www.github.com/jeffreychan637/dynamic3" target="_blank">View Code on Github</a></li>
                 <li class="download-nav"><a href="#download" class="download-nav">Download</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
@@ -53,7 +53,7 @@
         </div>
         
         
-        <a name="circle-graph"></a>
+        <a name="cir-graph" class="anchor"></a>
         <div>
             <div class="container graph">
                 <h1 class="section-title">Circle Graph</h1>
@@ -92,7 +92,7 @@ window.onload = function() {
         </div>
         
 
-        <a name="ever-changing-bar-graph"></a>
+        <a name="ever-changing-bar-graph" class="anchor"></a>
         <div class="colored-blocks">
             <div class="container graph">
                 <h1 class="section-title">Ever-changing Bar Graph</h1>
@@ -153,7 +153,7 @@ window.onload = function() {
         </div>
         
 
-        <a name="expanding-bar-graph"></a>
+        <a name="expanding-bar-graph" class="anchor"></a>
         <div>
             <div class="container graph">
                 <h1 class="section-title">Expanding Bar Graph</h1>
