@@ -1,3 +1,5 @@
+"use strict";
+
 window.onload = function() {
     var maxCirculeGraphDomain = 1;
     var maxBarGraphDomain = 250;
@@ -12,18 +14,35 @@ window.onload = function() {
                         .setText(function(d) { return d + " BTC"; })
                         .setTextColor('black');
     
-    var bar = dynamic3.createGraph('Bar')
-                        .setWidth(500)
-                        .setHeight(600)
+    var bar = dynamic3.createGraph('BarGraph')
+                        .setWidth('496px')
+                        .setHeight('596px')
                         .setDomain([0, maxBarGraphDomain])
                         .setPadding(10)
+                        .setBarGraphOrientation("vertical")
                         .setTransitionTime(400)
                         .setBackgroundColor('#496dff')
                         .setText(extractTextForCurrencies)
+                        .setBorderColor('#2b2c2b')
+                        .setBorderWidth(1)
                         .setTextColor('black');
 
-    bar.finishSetup(document.getElementById("target2"));
-    graph.finishSetup(document.getElementById("target")); // This will connect our d3 graph with the dom element.
+    var slidingBar = dynamic3.createGraph('SlidingBarGraph')
+                        .setWidth('496px')
+                        .setHeight('596px')
+                        .setDomain([0, 1])
+                        //.setPadding(10)
+                        .setTransitionTime(400)
+                        .setBackgroundColor('#496dff')
+                        .setNumberOfBars(8)
+                        //.setText(extractTextForCurrencies)
+                        //.setBorderColor('#2b2c2b')
+                        //.setBorderWidth(1)
+                        //.setTextColor('black');
+
+    bar.finishSetup(document.getElementById("bar-graph"));
+    graph.finishSetup(document.getElementById("circle-graph")); // This will connect our d3 graph with the dom element.
+    slidingBar.finishSetup(document.getElementById("animating-bar-graph")); // This will connect our d3 graph with the dom element.
 
     // For now, it may be simpler to impose the rule that all styles must be decided before this finishSetup function is called.
     // Like the above setup would maybe throw an error after we've already "finished our setup". I'm not sure if this will
@@ -35,6 +54,7 @@ window.onload = function() {
         var exchangeRateURL = "https://blockchain.info/ticker";
         var httpRequest = new XMLHttpRequest();
         httpRequest.open('GET', exchangeRateURL, false); // synchronous.
+        httpRequest.setRequestHeader('Accept', 'application/json');
         httpRequest.send();
         if (httpRequest.status === 200) {
            return JSON.parse(httpRequest.responseText);
@@ -46,10 +66,12 @@ window.onload = function() {
     var exchangeRates = getExchangeRates();
     var currencies = ["AUD", "CAD", "CHF", "GBP", "NZD", "SGD", "USD"];
     var lastBarGraphValues = null;
+    var allBitcoinValues = [];
 
     function updateGraphsWithLatestData(data) {
         var bitcoinValue = data.x.value * (1e-8);
         graph.update(Math.min(bitcoinValue, maxCirculeGraphDomain));
+
         
         var barData = [];
         lastBarGraphValues = [];
@@ -60,6 +82,10 @@ window.onload = function() {
             barData.push(Math.min(priceOfLastExchange, maxBarGraphDomain));
         }
         bar.update(barData);
+
+        allBitcoinValues.unshift({val: bitcoinValue, uid: Date.now()});
+        //allBitcoinValues.push({val: bitcoinValue, uid: Date.now()});
+        slidingBar.update(allBitcoinValues);
     }
 
     function extractTextForCurrencies(data, idx) {

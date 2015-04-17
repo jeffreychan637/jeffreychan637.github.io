@@ -80,3 +80,43 @@ pre.prettyprint {
     background-color: #3F3899;
     background-image: none;
 }
+
+.dropdown {
+    text-align: left;
+    display: table-cell;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.dropdown-toggle {
+    background-image: none;
+    background-color: white;
+}
+
+#bar-graph, #animating-bar-graph {
+    display:block;
+    height:600px;
+    width: 500px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px; 
+    font-family: Helvetica, Arial;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    /*
+    display:block; 
+    height:500px;
+    width:500px;
+    background-color:white;
+    */
+}
+
+#circle-graph {
+    display:block; 
+    height:500px;
+    width:500px;
+    background-color:white;
+    margin-bottom: 10px;
+}
