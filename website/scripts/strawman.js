@@ -16,10 +16,9 @@ window.onload = function() {
     
     var bar = dynamic3.createGraph('BarGraph')
                         .setWidth('496px')
-                        .setHeight('596px')
+                        .setHeight('496px')
                         .setDomain([0, maxBarGraphDomain])
                         .setPadding(10)
-                        .setBarGraphOrientation("vertical")
                         .setTransitionTime(400)
                         .setBackgroundColor('#496dff')
                         .setText(extractTextForCurrencies)
@@ -29,28 +28,36 @@ window.onload = function() {
 
     var slidingBar = dynamic3.createGraph('SlidingBarGraph')
                         .setWidth('496px')
-                        .setHeight('596px')
+                        .setHeight('496px')
                         .setDomain([0, 1])
-                        //.setPadding(10)
                         .setTransitionTime(400)
                         .setBackgroundColor('#496dff')
                         .setNumberOfBars(8)
-                        //.setText(extractTextForCurrencies)
-                        //.setBorderColor('#2b2c2b')
-                        //.setBorderWidth(1)
-                        //.setTextColor('black');
+                        .setBorderColor('#2b2c2b')
+                        .setBorderWidth(1);
 
-    bar.finishSetup(document.getElementById("bar-graph"));
-    graph.finishSetup(document.getElementById("circle-graph")); // This will connect our d3 graph with the dom element.
-    slidingBar.finishSetup(document.getElementById("animating-bar-graph")); // This will connect our d3 graph with the dom element.
+    bar.insertIntoHTMLElement(document.getElementById("bar-graph"));
+    graph.insertIntoHTMLElement(document.getElementById("circle-graph")); // This will connect our d3 graph with the dom element.
+    slidingBar.insertIntoHTMLElement(document.getElementById("animating-bar-graph")); // This will connect our d3 graph with the dom element.
+    var orientationButton = $("#graph-orientation-dropdown");
+    function updateOrientationButton() {
+        orientationButton.html(bar.getOrientation() === "vertical" ? "Vertical" : "Horizontal");
+    }
+    updateOrientationButton();
 
-    // For now, it may be simpler to impose the rule that all styles must be decided before this finishSetup function is called.
-    // Like the above setup would maybe throw an error after we've already "finished our setup". I'm not sure if this will
-    // actually be helpful or not until we actually start hacking on the library. But this is a simple enough
-    // constraint to begin with. After finishSetup, the only function you can call on a graph is 'update()'
+    $("#switch-to-vertical").click(function() {
+        bar.setOrientation("vertical");
+        updateOrientationButton();
+    });
+
+    $("#switch-to-horizontal").click(function() {
+        bar.setOrientation("horizontal");
+        updateOrientationButton();
+    });
 
     // Get exhange rates from various currencies to 1 bitcoin.
     function getExchangeRates(callback) {
+        /* Content security policy mess I don't feel like dealing with
         var exchangeRateURL = "https://blockchain.info/ticker";
         var httpRequest = new XMLHttpRequest();
         httpRequest.open('GET', exchangeRateURL, false); // synchronous.
@@ -59,8 +66,59 @@ window.onload = function() {
         if (httpRequest.status === 200) {
            return JSON.parse(httpRequest.responseText);
         }
-
         return null;
+        */
+        return {
+            "AUD": {
+              "15m": 293.39,
+              "last": 293.39,
+              "buy": 293.38,
+              "sell": 293.74,
+              "symbol": "$"
+            },
+            "CAD": {
+              "15m": 279.56,
+              "last": 279.56,
+              "buy": 279.55,
+              "sell": 279.89,
+              "symbol": "$"
+            },
+            "CHF": {
+              "15m": 217.11,
+              "last": 217.11,
+              "buy": 217.1,
+              "sell": 217.36,
+              "symbol": "CHF"
+            },
+            "GBP": {
+              "15m": 151.71,
+              "last": 151.71,
+              "buy": 151.7,
+              "sell": 151.89,
+              "symbol": "£"
+            },
+            "NZD": {
+              "15m": 298.15,
+              "last": 298.15,
+              "buy": 298.13,
+              "sell": 298.49,
+              "symbol": "$"
+            },
+            "SGD": {
+              "15m": 302.89,
+              "last": 302.89,
+              "buy": 302.87,
+              "sell": 303.24,
+              "symbol": "$"
+            },
+            "USD": {
+              "15m": 221.95,
+              "last": 221.95,
+              "buy": 221.94,
+              "sell": 222.21,
+              "symbol": "$"
+            }
+        };
     }
 
     var exchangeRates = getExchangeRates();
@@ -83,8 +141,7 @@ window.onload = function() {
         }
         bar.update(barData);
 
-        allBitcoinValues.unshift({val: bitcoinValue, uid: Date.now()});
-        //allBitcoinValues.push({val: bitcoinValue, uid: Date.now()});
+        allBitcoinValues.push({val: bitcoinValue, uid: Date.now()});
         slidingBar.update(allBitcoinValues);
     }
 

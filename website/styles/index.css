@@ -9,7 +9,6 @@ code {
 
 
 .nav {
-/*    opacity: 50%;*/
     backface-visibility: visible;
 }
     
@@ -27,7 +26,7 @@ code {
     margin-bottom: 0px;
     color: white;
     background: linear-gradient(#625DAA, #DA8CB9);
-    background-image: url(skyline-MarioCutroneo.jpg);
+    background-image: url(./../images/skyline-MarioCutroneo.jpg);
     background-position: top center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -48,6 +47,10 @@ code {
 
 .graph-description {
     font-size: 20px;   
+}
+
+.tutorial-p {
+    margin-top: 50px;   
 }
 
 .code {
@@ -72,14 +75,18 @@ pre.prettyprint {
     font-size: 72px;
 }
 
+.tutorial-title {
+    margin-top: 50px;
+}
+
 .download-text {
     font-size: 18px !important;
 }
 
 .btn-primary {
-    background-color: #625DAA;
-    border-color: #5F3288;
-    background-image: none;
+    background-color: #625DAA !important;
+    border-color: #5F3288 !important;
+    background-image: none !important;
 }
 
 .btn-primary:hover {
@@ -95,13 +102,20 @@ pre.prettyprint {
 }
 
 .dropdown-toggle {
-    background-image: none;
-    background-color: white;
+    background-image: none !important;
+    background-color: #625DAA !important;
+    border-color: #5F3288 !important;
+    color: white !important;
+    text-shadow: none;
+}
+
+.dropdown ul {
+    left: inherit;
 }
 
 #bar-graph, #animating-bar-graph {
-    display:block;
-    height:600px;
+    display: block;
+    height: 500px;
     width: 500px;
     border-style: solid;
     border-color: black;
@@ -123,6 +137,6 @@ pre.prettyprint {
     display:block; 
     height:500px;
     width:500px;
-    background-color:white;
+    background-color: inherit;
     margin-bottom: 10px;
 }

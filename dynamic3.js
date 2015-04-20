@@ -65,7 +65,7 @@ dynamic3.Graph.prototype = {
         chart.style('stroke-width', this.options.borderWidth);
     },
 
-    finishSetup: function(node) {
+    insertIntoHTMLElement: function(node) {
         this.ctx = d3.select(node)
             .append('svg:svg')
             .attr('width', parseFloat(this.options.width))
@@ -88,6 +88,8 @@ dynamic3.CircleGraph = function() {
 
 dynamic3.CircleGraph.prototype = {
     __proto__: dynamic3.Graph.prototype,
+    constructor: dynamic3.CircleGraph,
+
     update: function(data) {
         var oldData = this.data;
 
@@ -132,24 +134,33 @@ dynamic3.CircleGraph.prototype = {
 
 dynamic3.BarGraph = function() {
     dynamic3.Graph.call(this);
+    this.options.vertical = true;
 }
 
 dynamic3.BarGraph.prototype = {
     __proto__: dynamic3.Graph.prototype,
+    constructor: dynamic3.BarGraph,
     
     setPadding: function(padding) {
         this.options.padding = padding;
         return this;
     },
     
-    setBarGraphOrientation: function(orientation) {
-        this.options.vertical = true;
-        if (orientation == "horizontal") {
+    setOrientation: function(orientation) {
+        if (orientation === "horizontal") {
             this.options.vertical = false;
-        } else if (orientation != "vertical") {
-            console.error("Orientation must be horzontal or vertical");
+        } else if (orientation === "vertical") {
+            this.options.vertical = true;
+        } else {
+            console.error("Orientation must be the string 'horzontal' or 'vertical'");
         }
         return this;
+    },
+
+    getOrientation: function() {
+        if (this.options.vertical)
+            return "vertical";
+        return "horizontal";
     },
 
     update: function(data) {
@@ -198,17 +209,27 @@ dynamic3.BarGraph.prototype = {
             var textChart = this.ctx.selectAll('text')
                             .data(data);
 
-            var textX, textY;
+            var textX, textY, transform;
             if (this.options.vertical) {
                 textX = function(d, i) {
                     return i * width + (i + 1) * padding;
                 }
                 textY = padding;
+                transform = function(d, i) {
+                    var command = "translate(" + textX(d, i) + "," + textY + ")";
+                    command += "rotate(-90)";
+                    // Note that translations have x,y exchaged because we're rotated 90 degrees.
+                    command += "translate(" + (-textX(d, i) - canvasHeight + textY*2) + "," + (width/2) + ")";
+                    return command;
+                }
             } else {
                 textX = padding;
                 textY = function(d, i) {
                     return i * height + height/2 + (i + 1) * padding;
                     /* Use (i + 1) to account for initial padding. Add height/2 to put label in middle of bar. */
+                }
+                transform = function() {
+                    return "rotate(0)";
                 }
             }
 
@@ -216,10 +237,15 @@ dynamic3.BarGraph.prototype = {
                              .attr('x', textX)
                              .attr('y', textY)
                              .attr('fill', this.options.textColor || 'black')
+                             .attr("transform", transform)
                              .text(this.options.text);
 
             textChart.transition()
                      .duration(this.options.transitionTime)
+                     .attr('x', textX)
+                     .attr('y', textY)
+                     .attr('fill', this.options.textColor || 'black')
+                     .attr("transform", transform)
                      .text(this.options.text);
         }
 
@@ -247,9 +273,8 @@ dynamic3.SlidingBarGraph.prototype = {
 
     update: function(data) {
 
-        //data = data.slice( -this.options.numberOfBars ) //grab the last (this.numberOfBars) number of points in our array
-        data = data.slice(0, this.options.numberOfBars); //grab the last (this.numberOfBars) number of points in our array
-        //data = data.reverse();
+        data = data.slice( -this.options.numberOfBars ) //grab the last (this.numberOfBars) number of points in our array
+        data = data.reverse();
 
         var separator = 4;
         
@@ -274,7 +299,7 @@ dynamic3.SlidingBarGraph.prototype = {
             'x' : function(d, i) { return i*barWidth + i*separator;}
             , 'y' : function (d) { return height - yScale(d.val); }
             , 'width' : function () { return barWidth; }
-            , 'height' : function(d) { return yScale(d.val) }  //TODO : look into anti-aliasing prevention
+            , 'height' : function(d) { return yScale(d.val) }
         };
 
         var chart = this.ctx.selectAll('rect')
@@ -296,23 +321,14 @@ dynamic3.SlidingBarGraph.prototype = {
              .attr('y', toAll.y)
              .attr('height', toAll.height)
               //'width' is necessary b/c when the graph is first started, we increase the number of data points.
-             .attr('width', toAll.width)
+             .attr('width', toAll.width);
 
         chart.exit()
              .transition()
              .duration(this.options.transitionTime)
              .ease("linear")
-             //basically, all of this is a swoop out
-             //.attr('transform', 'rotate(' + 90 + ')') //in degrees
-             .attr('x', 
-                     function(d, i) { 
-                         //return toAll.x(d, i - 1); 
-                         return toAll.x(d, data.length); 
-                     }) //slide out to right
-             //.attr('y', height / 4) //quarte the way up
-             //.attr('height', function(d, i) { return toAll.height(d, i) * 0.1 })
-             .remove()
-
+             .attr('x', function(d, i) { return toAll.x(d, data.length); }) //slide out to right
+             .remove();
        }
 };
 

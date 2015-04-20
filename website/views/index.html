@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang=en>
     <head>
-        <script src="./d3.js" type="text/javascript" charset="utf-8"></script>
+        <script src="./../dependencies/d3.js" type="text/javascript" charset="utf-8"></script>
 <!--        use this eventually <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
-		<script src="./dynamic3.js"></script>
-		<script src="./strawman.js"></script>
+		<script src="./../../dynamic3.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <link rel="stylesheet" href="./bootstrap.min.css"></link>
-        <link rel="stylesheet" href="./bootstrap-theme.min.css"></link>
-        <script src="./bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./index.css"></link>
+		<script src="./../scripts/strawman.js"></script>
+        <link rel="stylesheet" href="./../dependencies/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="./../dependencies/bootstrap-theme.min.css"></link>
+        <script src="./../dependencies/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./../styles/index.css"></link>
         <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     </head>
     <body>
@@ -25,19 +25,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Dyanmic3</a>
+              <a class="navbar-brand" href="#">Dynamic3</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li><a href="#cir-graph">Circle Graph</a></li>
                 <li><a href="#ever-changing-bar-graph">Ever-Changing Bar Graph</a></li>
-                <li><a href="#expanding-bar-graph">Expanding Bar Graph</a></li>
+                <li><a href="#cir-graph">Circle Graph</a></li>
+                <li><a href="#sliding-bar-graph">Sliding Bar Graph</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="http://www.github.com/jeffreychan637/dynamic3" target="_blank">View Code on Github</a></li>
-                <li class="download-nav"><a href="#download" class="download-nav">Download</a></li>
+                <li class="download-nav"><a href="./../../dynamic3.js" class="download-nav" download="dynamic3.js">Download</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
@@ -45,16 +45,60 @@
         
         
         <div class="jumbotron title-con">
-          <div class="container">
-            <h1 class="title">Dynamic3</h1>
+          <div class="container">  
+            <h1 class="title">Dynamic3</h1>  <!-- The photo is from Flickr user Mario Cutroneo. Used with permission (https://creativecommons.org/licenses/by-nc-nd/2.0/) -->
             <p>Dynamic3 is a library built on top of <a href="http://d3js.org/">d3.js</a> that makes it simple and easy to build powerful, dynamic, animated graphs that feature real-time data.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Download Dynamic3</a></p>
+            <p><a class="btn btn-primary btn-lg" href="./../../dynamic3.js" download="dynamic3.js" role="button" >Download Dynamic3</a></p>
           </div>
         </div>
         
+        <a name="ever-changing-bar-graph" class="anchor"></a>
+        <div>
+            <div class="container graph">
+                <h1 class="section-title">Ever-changing Bar Graph</h1>
+                  <div class="row">
+                    <div class="col-md-6">
+                    <!--
+                      <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                            0 Currencies Selected
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">USD</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">AUD</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JPD</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">EUR</a></li>
+                          </ul>
+                      </div>
+                      -->
+                      <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
+                              <p id="graph-orientation-dropdown" style="display: inline;"> Orientation </p>
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" id="switch-to-vertical">Vertical</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" id="switch-to-horizontal">Horizontal</a></li>
+                          </ul>
+                      </div>
+                      <div id="bar-graph" ></div>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="graph-description">The ever-changing bar graph is a bar graph where the values of categories change over time reflected in the ever-changing lengths of the bars in the graphs.
+                      </p>
+                      <p class="graph-description">It's useful for data where values change but the categories of those values always stay the same such as real-time basketball stats for different players in a specific game or the amount of votes for certain political candidates in an election.
+                      </p>
+                      <p class="graph-description">This specific graph shows the value of the latest global Bitcoin transaction in various currencies.
+                      </p>
+                      <p class="tutorial-p"><a class="btn btn-primary btn-lg" href="./tutorial.html" role="button">View Tutorial</a></p>
+                   </div>
+                  </div>
+            </div>
+        </div>
         
         <a name="cir-graph" class="anchor"></a>
-        <div>
+        <div class="colored-blocks">
             <div class="container graph">
                 <h1 class="section-title">Circle Graph</h1>
                   <div class="row">
@@ -72,13 +116,13 @@ window.onload = function() {
                         .setBackgroundColor('#ca454e')
                         .setBorderColor('#8e3036')
                         .setBorderWidth(4)
-                        .setWidth(500)
-                        .setHeight(500)
+                        .setWidth('496px')
+                        .setHeight('496px')
                         .setDomain([0, 1])
                         .setTransitionTime(400)
                         .setText(getLabel)
                         .setTextColor('black');
-    graph.finishSetup(document.getElementById("circle"));
+    graph.insertIntoHTMLElement(document.getElementById("circle"));
     while(true) {
         var newValue = getNextBitcoinTransaction();
         graph.update(newValue);
@@ -92,89 +136,28 @@ window.onload = function() {
         </div>
         
 
-        <a name="ever-changing-bar-graph" class="anchor"></a>
-        <div class="colored-blocks">
-            <div class="container graph">
-                <h1 class="section-title">Ever-changing Bar Graph</h1>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="dropdown">
-                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                            0 Currencies Selected
-                            <span class="caret"></span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">USD</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">AUD</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JPD</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">EUR</a></li>
-                          </ul>
-                      </div>
-                      <div class="dropdown">
-                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                            Vertical Bar Graph
-                            <span class="caret"></span>
-                          </button>
-                          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Vertical</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Horizontal</a></li>
-                          </ul>
-                      </div>
-                      <div id="bar-graph" ></div>
-                    </div>
-                    <div class="col-md-6">
-                      <p class="graph-description">The ever-changing bar graph is a bar graph where the values of categories change over time reflected in the ever-changing lengths of the bars in the graphs. This specific graph shows the value of the latest global Bitcoin transaction in various currencies.</p>
-                      <p>
-                        <pre class="prettyprint code">
-&lt;div id="changing-bar"&gt;&lt;/div&gt;
-&lt;script&gt;
-window.onload = function() {
-   var bar = dynamic3.createGraph('Bar')
-                        .setWidth(500)
-                        .setHeight(600)
-                        .setDomain([0, 250])
-                        .setPadding(10)
-                        .setTransitionTime(400)
-                        .setBackgroundColor('#496dff')
-                        .setText(extractTextForCurrencies)
-                        .setTextColor('black');
-    graph.finishSetup(document.getElementById("changing-bar"));
-    while(true) {
-        var newValue = getNextBitcoinTransaction();
-        var newListofCurrencyValues = convertCurrencies(newValue);
-        bar.update(newListofCurrencyValues);
-    }
-}
-&lt;/script&gt;</pre>
-                     </p>
-                   </div>
-                  </div>
-            </div>
-        </div>
-        
-
-        <a name="expanding-bar-graph" class="anchor"></a>
+        <a name="sliding-bar-graph" class="anchor"></a>
         <div>
             <div class="container graph">
-                <h1 class="section-title">Expanding Bar Graph</h1>
+                <h1 class="section-title">Sliding Bar Graph</h1>
                   <div class="row">
                     <div class="col-md-6">
                       <div id="animating-bar-graph"></div>
                     </div>
                     <div class="col-md-6">
-                      <p class="graph-description">The expanding bar graph is a bar graph where the categories of the graph change over time, while the values do not. This specific graph shows the latest global Bitcoin transactions.</p>
+                      <p class="graph-description">The sliding bar graph is a bar graph where the categories of the graph change over time, while the values do not. This specific graph shows the latest global Bitcoin transactions.</p>
                       <p>
                         <pre class="prettyprint code">
 &lt;div id="expand-bar"&gt;&lt;/div&gt;
 &lt;script&gt;window.onload = function() {
     var slidingBar = dynamic3.createGraph('SlidingBarGraph')
                         .setWidth('496px')
-                        .setHeight('596px')
+                        .setHeight('496px')
                         .setDomain([0, 1])
                         .setTransitionTime(400)
                         .setBackgroundColor('#496dff')
                         .setNumberOfBars(8)
-    graph.finishSetup(document.getElementById("expand-bar"));
+    graph.insertIntoHTMLElement(document.getElementById("expand-bar"));
     while(true) {
         var newValue = getNextBitcoinTransaction();
         listOfAllBitcoinTransactions.unshift(
@@ -199,7 +182,7 @@ window.onload = function() {
                      <code>&lt;script src="http://d3js.org/d3.v3.min.js" charset="utf-8"&gt;&lt;/script&gt;</code><br>
                      <code>&lt;script src="path/to/dynamic3.js"&gt;&lt;/script&gt;</code></p>
                  <p class="download-text">to your HTML file for graph satisfaction.</p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Download Dynamic3</a></p>
+                <p><a class="btn btn-primary btn-lg" href="./../../dynamic3.js" download="dynamic3.js" role="button">Download Dynamic3</a></p>
             </div>
         </div>
 
