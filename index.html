@@ -48,7 +48,9 @@
           <div class="container">  
             <h1 class="title">Dynamic3</h1>  <!-- The photo is from Flickr user Mario Cutroneo. Used with permission (https://creativecommons.org/licenses/by-nc-nd/2.0/) -->
             <p>Dynamic3 is a library built on top of <a href="http://d3js.org/">d3.js</a> that makes it simple and easy to build powerful, dynamic, animated graphs that feature real-time data.</p>
-            <p><a class="btn btn-primary btn-lg" href="./../../dynamic3.js" download="dynamic3.js" role="button" >Download Dynamic3</a></p>
+            <p class="padding-around"><a class="btn btn-primary btn-lg" href="./../../dynamic3.js" download="dynamic3.js" role="button" >Download Dynamic3</a></p>
+            <h1 class="section-title">Why Dynamic3?</h1>
+            <p>Dynamic 3 provides all the customization of d3.js without all the complexity. Make your dynamic graph featuring real-time data in 60 seconds and go back to working on what matters to you instead of spending weeks wading through the nuances of d3.js.</p>
           </div>
         </div>
         
@@ -113,20 +115,22 @@
 &lt;script&gt;
 window.onload = function() {
     var graph = dynamic3.createGraph('Circle')
-                        .setBackgroundColor('#ca454e')
-                        .setBorderColor('#8e3036')
-                        .setBorderWidth(4)
-                        .setWidth('496px')
-                        .setHeight('496px')
-                        .setDomain([0, 1])
-                        .setTransitionTime(400)
-                        .setText(getLabel)
-                        .setTextColor('black');
-    graph.insertIntoHTMLElement(document.getElementById("circle"));
-    while(true) {
+                        .setBackgroundColor('<input id="circleBG" class="color" value="#ca454e">')
+                        .setBorderColor('<input id="circleBC" class="color" value="#8e3036">')
+                        .setBorderWidth(<input id="circleBW" class="number" value="4">)
+                        .setWidth('500px')
+                        .setHeight('500px')
+                        .setDomain([<input id="circleDS" class="number" value="0">, <input id="circleDE" class="number" value="1">])
+                        .setTransitionTime(<input id="circleTT" class="number" value="400">)
+                        .setText(getLabel) //getLabel is a function
+                        .setTextColor(<input id="circleTC" class="color" value="black">);
+    graph.insertIntoHTMLElement(document.getElementById('circle'));
+    function loop() {
         var newValue = getNextBitcoinTransaction();
         graph.update(newValue);
+        setTimeout(loop, 1000);
     }
+    loop();
 }
 &lt;/script&gt;</pre>
                      </p>
@@ -153,25 +157,26 @@ window.onload = function() {
     var slidingBar = dynamic3.createGraph('SlidingBarGraph')
                         .setWidth('496px')
                         .setHeight('496px')
-                        .setDomain([0, 1])
-                        .setTransitionTime(400)
-                        .setBackgroundColor('#496dff')
-                        .setNumberOfBars(8)
+                        .setDomain([<!--<input class="number" id="slidingDS" value="0">-->0, <!--<input class="number" id="slidingDE" value="1">-->1])
+                        .setTransitionTime(<input class="number" id="slidingTT" value="400">)
+                        .setBackgroundColor('<input class="color" id="slidingBG" value='#496dff'>')
+                        .setNumberOfBars(<input class="number" id="slidingBN" value='8'>)
     graph.insertIntoHTMLElement(document.getElementById("expand-bar"));
-    while(true) {
+    function loop() {
         var newValue = getNextBitcoinTransaction();
-        listOfAllBitcoinTransactions.unshift(
+        listOfAllBitcoinTransactions.push(
             {val: newValue, uid: Date.now()}
         );
         graph.update(listOfAllBitcoinTransactions);
+        setTimeout(loop, 1000);
     }
+    loop();
 }&lt;/script&gt;</pre>
                      </p>
                    </div>
                   </div>
             </div>
         </div>
-        
 
         <div class="jumbotron colored-blocks">
             <a name="download"></a>

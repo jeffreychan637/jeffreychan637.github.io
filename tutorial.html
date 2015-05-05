@@ -32,13 +32,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li><a href="./../../index.html#ever-changing-bar-graph">Ever-Changing Bar Graph</a></li>
-                <li><a href="./../../index.html#cir-graph">Circle Graph</a></li>
-                <li><a href="./../../index.html#sliding-bar-graph">Sliding Bar Graph</a></li>
+                <li><a href="./index.html#ever-changing-bar-graph">Ever-Changing Bar Graph</a></li>
+                <li><a href="./index.html#cir-graph">Circle Graph</a></li>
+                <li><a href="./index.html#sliding-bar-graph">Sliding Bar Graph</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="http://www.github.com/jeffreychan637/dynamic3" target="_blank">View Code on Github</a></li>
-                <li class="download-nav"><a href="./../../dynamic3.js" class="download-nav" download="dynamic3.js">Download</a></li>
+                <li class="download-nav"><a href="./dynamic3.js" class="download-nav" download="dynamic3.js">Download</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
@@ -47,8 +47,8 @@
         <div>
             <div class="container">
                 <h1 class="section-title tutorial-title">Ever-changing Bar Graph Tutorial</h1>
-                <p>This tutorial will show you how to make a Dynamic3 Ever-changing Bar Graph. For simplicity's sake, the bar values will be based on randomly generated data.</p> 
-                <p>Here’s what it will look like:</p>
+                <p>This tutorial will show you how to make a Dynamic3 Ever-changing Bar Graph. For simplicity's sake, the bar values will be based on randomly generated data.</p>
+                <p>Here's what it will look like:</p>
                 <div id="tutorial-bar-graph"></div>
                 <p>Let’s start with our HTML file:</p>
                 <pre class="prettyprint">
@@ -99,7 +99,7 @@ bar.setWidth('400px')
    .setOrientation('horizontal')
    .setText(getDataText); //we'll define getDataText later</pre>
 
-                <p>When you’re done defining attributes, call <i>insertIntoHTMLElement</i> on your graph object, passing in the HTML element that will contain your graph. This will make your graph appear on your webpage.</p>
+                <p>When you're done defining attributes, call <i>insertIntoHTMLElement</i> on your graph object, passing in the HTML element that will contain your graph. This will make your graph appear on your webpage.</p>
                 
                 <pre class="prettyprint">bar.insertIntoHTMLElement(document.getElementById("bar-graph"));</pre>
                 
@@ -128,7 +128,7 @@ function loopWithRandomDynamicData() {
 function getDataText(data) {
         return data;
 }</pre>
-                <p>And that’s all there is to it!</p>
+                <p>And that's all there is to it!</p>
             </div>
         </div>
     </body>
