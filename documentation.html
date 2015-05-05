@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang=en>
+    <head>
+        <script src="./website/dependencies/d3.js" type="text/javascript" charset="utf-8"></script>
+<!--        use this eventually <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
+		<script src="./dynamic3.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="./website/scripts/tutorial.js"></script>
+        <link rel="stylesheet" href="./website/dependencies/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="./website/dependencies/bootstrap-theme.min.css"></link>
+        <script src="./website/dependencies/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./website/styles/index.css"></link>
+        <link rel="stylesheet" href="./website/styles/documentation.css"></link>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    </head>
+    <body>
+        
+        
+        <nav class="navbar navbar-default navbar-fixed-top nav">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="./index.html">Dynamic3</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="./index.html#ever-changing-bar-graph">Ever-Changing Bar Graph</a></li>
+                <li><a href="./index.html#cir-graph">Circle Graph</a></li>
+                <li><a href="./index.html#sliding-bar-graph">Sliding Bar Graph</a></li>
+                <li><a href="#">Documentation</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://www.github.com/jeffreychan637/dynamic3" target="_blank">View Code on Github</a></li>
+                <li class="download-nav"><a a href="./dynamic3.js" class="download-nav" download="dynamic3.js">Download</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+        
+        <div>
+            <div class="container">
+                <h1 class="section-title doc-title">Documentation</h1>
+                
+                <h2 class="subtitle">Creating a Graph</h2>
+                <pre class="prettyprint">
+var myGraph = <b>dynamic3.createGraph</b>(string graphType)</pre>
+                <p>Creates a graph of type graph.</p>
+                <p>Valid choices are "Circle", "BarGraph", "SlidingBarGraph".</p>
+                
+                <h2 class="subtitle">Shared Graph Methods</h2>
+                <pre class="prettyprint">
+myGraph.<b>setBackgroundColor</b>(string color)</pre>
+                <p>Sets the background color of the graph to <i>color</i>.</p>
+                
+                <pre class="prettyprint">
+myGraph.<b>setBorderColor</b>(string color)</pre>
+                <p>Sets the border color of the graph to <i>color</i>.</p>
+                
+                <pre class="prettyprint">
+myGraph.<b>setBorderWidth</b>(int width)</pre>
+                <p>Sets the border width of the graph to <i>width</i>. <i>Width</i> must be a value in pixels.</p> 
+                
+                <pre class="prettyprint">
+myGraph.<b>setDomain</b>( [ int min, int max ] )</pre>
+                <p>Sets the min value to be displayed on the graph to <i>min</i> and the max value to <i>max</i>.</p>
+                <p>This is used to determine the scaling of the graph. See <a href="http://en.wikipedia.org/wiki/Domain_of_a_function">domain/range</a>.</p>
+                
+                <pre class="prettyprint">
+myGraph.<b>setHeight</b>(int height)</pre>
+                <p>Sets the height of the graph to <i>height</i>. <i>Height</i> must be a value in pixels.</p>
+                
+                <pre class="prettyprint">
+myGraph.<b>setText</b>(function getLabel)</pre>
+                <p>Sets the label(s) for the graph to the values returned by the function <i>getLabel</i>.</p>
+                <p>The label function takes in arguments <i>data</i> and <i>idx</i> where <i>data</i> is the specific value the graph is displaying and <i>idx</i> is the position of the value in the array (for bar graphs) passed through the <i>update</i> function.</p>
+                
+                <pre class="prettyprint">
+myGraph.<b>setTextColor</b>(string color)</pre>
+                <p>Sets the color of the text labels in the graph to <i>color</i>.</p>
+                
+                <pre class="prettyprint">
+myGraph.<b>setTransitionTime</b>(int time)</pre>
+                <p>Sets the transition time, in milliseconds, between displaying one set of values in the graph to another to <i>time</i>.</p>
+                
+                <pre class="prettyprint">
+myGraph.<b>setWidth</b>(int width)</pre>
+                <p>Sets the width of the graph to <i>width</i>. <i>Width</i> must be a value in pixels.</p>
+                
+                <h2 class="subtitle">Bar Graph Methods</h2>
+                
+                <pre class="prettyprint">
+myGraph.<b>setOrientation</b>(string orientation)</pre>
+                <p>Sets the orientation of the bar graph to <i>orientation</i>.</p>
+                <p>Valid values are "horizontal" and "vertical". <i>Bar graphs are vertical by default.</i></p>
+                
+            </div>
+        </div>
+    </body>
+</html>
